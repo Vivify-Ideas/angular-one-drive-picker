@@ -1,7 +1,7 @@
 angular-one-drive-picker
 =====================
 
-Angular directive that interact with the Google Picker API :
+Angular directive that interact with the OneDrive Picker API :
 * [OneDrive Picker SDK Docs](https://dev.onedrive.com/sdk/javascript-picker-saver.htm)
 
 **Requirements:** AngularJS 1.2+
@@ -16,7 +16,7 @@ Angular directive that interact with the Google Picker API :
 
 2. Manually
 
-Download [https://github.com/softmonkeyjapan/angular-google-picker/archive/0.1.zip](https://github.com/Vivify-Ideas/angular-one-drive-picker/archive/0.1.zip)
+Download [https://github.com/Vivify-Ideas/angular-one-drive-picker/archive/master.zip](https://github.com/Vivify-Ideas/angular-one-drive-picker/archive/master.zip)
 
 
 # Usage
