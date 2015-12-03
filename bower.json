@@ -1,8 +1,8 @@
 {
   "name": "angular-one-drive-picker",
-  "version": "0.1",
+  "version": "0.1.1",
   "authors": [
-    "Nikola Spaleviv <nikola.s@vivifyideas.com>"
+    "Nikola Spalevic <nikola.s@vivifyideas.com>"
   ],
   "description": "An AngularJs directive that interact with the OneDrive Picker API",
   "main": "dist/angular-one-drive-picker.js",

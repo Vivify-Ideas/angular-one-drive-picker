@@ -11,9 +11,10 @@
   angular.module('angularOneDrivePicker', [])
 
   .provider('angularOneDriveSettings', function () {
-    this.client_id     = null;
-    this.redirect_uri  = null;
-    this.select        = 'multi';
+    this.client_id    = null;
+    this.redirect_uri = null;
+    this.linkType     = 'webViewLink';
+    this.multiSelect  = true;
 
     /**
      * Provider factory $get method
@@ -21,9 +22,10 @@
      */
     this.$get = ['$window', function ($window) {
       return {
-        client_id     : this.client_id,
-        redirect_uri  : this.redirect_uri,
-        select        : this.select
+        client_id    : this.client_id,
+        redirect_uri : this.redirect_uri,
+        linkType     : this.linkType,
+        multiSelect  : this.multiSelect
       }
     }];
 
@@ -41,7 +43,8 @@
     return {
       restrict: 'A',
       scope: {
-        afterSelect: '='
+        afterSelect: '=',
+        afterCancel: '=?'
       },
       link: function (scope, element, attrs) {
 
@@ -50,18 +53,19 @@
         function openFileDialog() {
           WL.login({ scope: 'wl.signin onedrive.readonly' })
           .then(function(response) {
-            openFromSkyDrive();
+            openOneDrivePicker();
           });
         }
 
-        function openFromSkyDrive() {
-          WL.fileDialog({
-            mode: 'open',
-            select: angularOneDriveSettings.select
-          }).then(function(response) {
-            scope.afterSelect(response.data.files);
-            scope.$apply();
-          });
+        function openOneDrivePicker() {
+          var pickerOptions = angularOneDriveSettings;
+
+          pickerOptions.success = scope.afterSelect;
+          if (typeof scope.afterCancel === 'function') {
+            pickerOptions.cancel = scope.afterCancel;
+          };
+
+          OneDrive.open(pickerOptions);
         }
 
         element.bind('click', function (e) {

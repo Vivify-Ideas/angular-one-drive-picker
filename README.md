@@ -43,12 +43,8 @@ Download [https://github.com/Vivify-Ideas/angular-one-drive-picker/archive/maste
   .controller('ExampleCtrl', ['$scope', function ($scope) {
      $scope.files = [];
 
-     $scope.onLoaded = function () {
-       console.log('Google Picker loaded!');
-     }
-
-     $scope.onPicked = function (docs) {
-       angular.forEach(data.docs, function (file, index) {
+     $scope.onPicked = function (data) {
+       angular.forEach(data.values, function (file, index) {
          $scope.files.push(file);
        });
      }
@@ -58,7 +54,7 @@ Download [https://github.com/Vivify-Ideas/angular-one-drive-picker/archive/maste
 5. Add the directive to your HTML element
 
   ```html
-  <a href="javascript:;" angular-one-drive-picker after-select="onPicked(docs)">Open my OneDrive Drive</a>
+  <a href="javascript:;" angular-one-drive-picker after-select="onPicked(data)">Open my OneDrive Drive</a>
   ```
 
 6. That's it, you're done!
@@ -79,16 +75,17 @@ angular.module('myApp', ['angular-one-drive-picker'])
   angularOneDriveSettingsProvider.configure({
     client_id    : 'YOUR_CLIENT_ID',
     redirect_uri : 'YOUR_REDIRECT_URI',
-    select       : 'multi or single'
+    linkType     : 'webViewLink or downloadLink'
+    multiSelect  : 'true or false'
   });
 }])
 ```
 
 # Callbacks
 
-The directive provide you 3 callbacks that you can use in order to work with the Picker.
+The directive provide you 2 callbacks that you can use in order to work with the Picker.
 
-### onPicked
+### onPicked and onCancel
 
 This callback is triggered after you select files and click on the `select` button from the Picker.
 
@@ -96,14 +93,17 @@ This callback is triggered after you select files and click on the `select` butt
 angular.module('myApp', ['angular-one-drive-picker'])
 
 .controller('ExampleCtrl', ['$scope', function ($scope) {
-  $scope.onPicked = function (docs) {
-    // docs contains the list of google documents object as shown above.
+  $scope.onPicked = function (data) {
+    // data contains the list of OneDrive files.
+  }
+  $scope.onCancel = function () {
+    // after modal is closed with cancel button you can do something.
   }
 }]);
 ```
 
 ```html
-<a href="javascript:;" angular-one-drive-picker after-select="onPicked">Open my OneDrive Drive</a>
+<a href="javascript:;" angular-one-drive-picker after-select="onPicked" after-cancel="onCancel">Open my OneDrive Drive</a>
 ```
 
 # License
